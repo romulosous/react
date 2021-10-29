@@ -1,29 +1,41 @@
 import React, { Component } from "react";
-import Feed from "./components/Feed";
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      feed: [
-        { id: 1, username: "Danone", curtidas: 10, comentarios: 2 },
-        { id: 2, username: "Michel", curtidas: 120, comentarios: 24 },
-        { id: 3, username: "Rafael", curtidas: 30, comentarios: 12 },
-        { id: 4, username: "Edmarques", curtidas: 1, comentarios: 0 },
-      ]
+      email: "r",
+      senha: "",
+      sexo: "masculino"
     }
+    this.trocaEmail = this.trocaEmail.bind(this)
+    this.trocaSexo = this.trocaSexo.bind(this)
+  }
+
+  trocaEmail(e) {
+    let valorDigitado = e.target.value
+    this.setState({ email: valorDigitado })
+  }
+  trocaSexo(e) {
+    this.setState({ sexo: e.target.value })
   }
 
   render() {
     return (
       <div>
-        {
-          this.state.feed.map((item) => {
-            return (
-              <Feed id={item.id} name={item.username} likes={item.curtidas} comments={item.comentarios} />
-            )
-          })
-        }
+        <h2>Login</h2>
+        Email:
+        <input type="email" name="email" onChange={this.trocaEmail} value={this.state.email} /> <br />
+        Senha:
+        <input type="password" name="password" value={this.state.senha} onChange={(e) => this.setState({ senha: e.target.value })} /> <br />
+
+        Sexo:
+        <select name="sexo" value={this.state.sexo} onChange={this.trocaSexo}>
+          <option value="masculino">Masculino</option>
+          <option value="feminino">Feminino</option>
+
+        </select> <br />
+        {this.state.sexo}
       </div>
     )
   }
