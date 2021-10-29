@@ -1,44 +1,32 @@
 import React, { Component } from "react";
 
+
 class App extends Component {
+  // Primeiro que é carregado
   constructor(props) {
     super(props)
     this.state = {
-      nome: "Romulo",
-      mensagem: "",
-      contador: 1
+      hora: "00:00:00"
     }
-    this.aumentar = this.aumentar.bind(this)
-    this.diminuir = this.diminuir.bind(this)
-
-  }
-  aumentar() {
-    let state = this.state
-    state.contador += 1;
-    this.setState(state)
   }
 
-  diminuir() {
-    let state = this.state
-    if (state.contador === 0) {
-      state.mensagem = "Contador vazio!"
-      this.setState(state)
-      return
-    }
-    state.contador -= 1;
-    this.setState(state)
+  // Depois que o componente é montado
+  componentDidMount() {
+    setInterval(() => {
+      this.setState({ hora: new Date().toLocaleTimeString() })
+    }, 1000)
+  }
+
+  // Toda vez que um componente é atualizado, fazer algo..
+  componentDidUpdate() {
+    console.log("Atualizou!!!")
   }
 
 
   render() {
     return (
       <div>
-        <h1>Contador</h1>  <span>{this.state.mensagem}</span>
-        <h3>
-          <button onClick={this.diminuir}> - </button>
-          {this.state.contador}
-          <button onClick={this.aumentar}> + </button>
-        </h3>
+        <h1>Meu Projeto {this.state.hora}</h1>
       </div>
     )
   }
