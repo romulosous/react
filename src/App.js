@@ -4,38 +4,41 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      email: "r",
+      nome: "",
+      email: "",
       senha: "",
-      sexo: "masculino"
+      erro: ""
     }
-    this.trocaEmail = this.trocaEmail.bind(this)
-    this.trocaSexo = this.trocaSexo.bind(this)
+    this.cadastrar = this.cadastrar.bind(this)
   }
-
-  trocaEmail(e) {
-    let valorDigitado = e.target.value
-    this.setState({ email: valorDigitado })
-  }
-  trocaSexo(e) {
-    this.setState({ sexo: e.target.value })
+  cadastrar(event) {
+    const { nome, email, senha } = this.state
+    if (nome !== "" && email !== "" && senha !== "") {
+      alert(`Nome: ${nome} \nEmail: ${email} \nSenha: ${senha}`)
+    } else {
+      this.setState({ erro: "Ops! Parece que está faltando algo!" })
+    }
+    event.preventDefault()
   }
 
   render() {
     return (
       <div>
-        <h2>Login</h2>
-        Email:
-        <input type="email" name="email" onChange={this.trocaEmail} value={this.state.email} /> <br />
-        Senha:
-        <input type="password" name="password" value={this.state.senha} onChange={(e) => this.setState({ senha: e.target.value })} /> <br />
+        <h1>Novo Usuario:</h1>
+        {this.state.erro && <p>{this.state.erro}</p>}
+        <form onSubmit={this.cadastrar}>
+          <label>Nome:</label>
+          <input type="text" value={this.state.nome}
+            onChange={(e) => this.setState({ nome: e.target.value })} /> <br />
+          <label>Email: </label>
+          <input type="email" value={this.state.email}
+            onChange={(e) => this.setState({ email: e.target.value })} /> <br />
+          <label>Senha:</label>
+          <input type="password" value={this.state.senha}
+            onChange={(e) => this.setState({ senha: e.target.value })} /> <br />
 
-        Sexo:
-        <select name="sexo" value={this.state.sexo} onChange={this.trocaSexo}>
-          <option value="masculino">Masculino</option>
-          <option value="feminino">Feminino</option>
-
-        </select> <br />
-        {this.state.sexo}
+          <button type="submit">Cadastrar</button>
+        </form>
       </div>
     )
   }
