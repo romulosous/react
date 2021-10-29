@@ -1,26 +1,43 @@
 import React, { Component } from "react";
 
-class Membro extends Component {
-
+class App extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
-      nome: props.nome
+      status: false
     }
+    this.sair = this.sair.bind(this)
     this.entrar = this.entrar.bind(this)
+
   }
-  entrar(name) {
-    this.setState({ nome: name })
+  sair() {
+    this.setState({ status: false })
+
   }
+
+  entrar() {
+    this.setState({ status: true })
+  }
+
   render() {
     return (
       <div>
-        <h1>Bem-vindo(a) {this.state.nome}</h1>
-        <button onClick={() => this.entrar("Romim")} >Entrar no sistema</button>
-        <button onClick={() => this.setState({ nome: "" })}>Sair</button>
+        {
+          this.state.status ?
+            <div>
+              <h2>Bem Vindo ao sistema</h2>
+              <button onClick={this.sair}>Sair</button>
+            </div> :
+            <div>
+              <h2>Olá visitante, faça o login!</h2>
+              <button onClick={this.entrar} >Entrar no sistema</button>
+            </div>
+        }
+
+
       </div>
     )
   }
 }
 
-export default Membro
+export default App
